@@ -1,30 +1,18 @@
 <template>
-  <div class="about">
+  <div class="test-container">
     <h1>This is an test page</h1>
-    <Component2 from="test2" />
-    <Component3 from="test3" />
   </div>
 </template>
 
 <script>
-import Component2 from "@/components/component2";
-import Component3 from "@/components/component3";
 export default {
-  name: 'About',
-  components: {
-    Component2,
-    Component3
-  }
+  name: 'About'
 }
 </script>
 
 <style lang="less">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+.test-container {
+  width: 100%;
 }
 
 </style>
