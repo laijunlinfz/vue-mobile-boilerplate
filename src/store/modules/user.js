@@ -25,14 +25,15 @@ const actions = {
         .then(result => {
           const { code, data } = result || {};
           const { user } = data || {};
-          if (code !== 0 && !user) {
-            reject(new Error('Verification failed, please Login again.'));
-          } else {
+          // if (code !== 0 && !user) {
+          //   reject(new Error('Verification failed, please Login again.'));
+          // }
+          if (code === 0) {
             user.name = user.nickName;
             user.token = user.password;
             commit(USER_LOGIN, user);
-            resolve(result);
           }
+          resolve(result);
         })
         .catch(error => {
           console.error('loginAsync error ', error);
