@@ -5,6 +5,7 @@ module.exports = {
     proxy: {
       "/api": {
         target: "https://mp.ydhwh.cn/", // 要跨域的域名
+        // target: "http://127.0.0.1:7001/", // 要跨域的域名
         changeOrigin: true, // 是否开启跨域
         pathRewrite: {
           //重写路径

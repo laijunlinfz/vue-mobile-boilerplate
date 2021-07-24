@@ -1,8 +1,8 @@
 <template>
-  <div>{{fullName}} component </div>
+  <div>{{ fullName }} component</div>
   <div v-for="item in list" :key="item.name">
-    {{item.name}}
-    {{from}}
+    {{ item.name }}
+    {{ from }}
   </div>
 </template>
 
@@ -10,22 +10,35 @@
 /**
  * 组合式 API
  */
-// eslint-disable-next-line no-unused-vars
-import { ref, toRefs, getCurrentInstance, onMounted, watch, computed, h, onBeforeMount, onBeforeUpdate, onUpdated } from "vue";
-import { getComponentDataAsync } from '@/service';
+import {
+  ref,
+  toRefs,
+  getCurrentInstance,
+  onMounted,
+  watch,
+  computed,
+  // eslint-disable-next-line no-unused-vars
+  h,
+  onBeforeMount,
+  onBeforeUpdate,
+  onUpdated,
+  reactive,
+  isReactive
+} from "vue";
+import { getComponentDataAsync } from "@/service";
 
 export default {
   name: "Component3",
   props: {
     version: {
       type: String,
-      require: true
-    }
+      require: true,
+    },
   },
   // 因为 props 是响应式的，你不能使用 ES6 解构，它会消除 prop 的响应性
   setup(props, context) {
     const { version } = toRefs(props);
-    console.log('@@@@@ component3 props : ', version, props, context);
+    console.log("@@@@@ component3 props : ", version, props, context);
 
     // eslint-disable-next-line no-unused-vars
     const { ctx } = getCurrentInstance();
@@ -38,7 +51,11 @@ export default {
     const name = ref("vue");
     const list = ref([]);
 
-    const getAboutData = async() => {
+    const obj = reactive({ price: 100 });
+    const obj2 = { price: 200 };
+    console.log('#### isReactive ', isReactive(obj), isReactive(obj2));
+
+    const getAboutData = async () => {
       const result = await getComponentDataAsync();
       const { data } = result || {};
       const { rows = [] } = data || {};
@@ -50,21 +67,21 @@ export default {
      * https://v3.cn.vuejs.org/guide/composition-api-lifecycle-hooks.html
      */
     onBeforeMount(() => {
-      console.log('@@@@ onBeforeMount');
+      console.log("@@@@ onBeforeMount");
     });
     onMounted(() => {
-      console.log('@@@@ onMounted');
-      getAboutData()
+      console.log("@@@@ onMounted");
+      getAboutData();
     });
     onBeforeUpdate(() => {
-      console.log('@@@@ onBeforeUpdate');
+      console.log("@@@@ onBeforeUpdate");
     });
     onUpdated(() => {
-      console.log('@@@@ onUpdated');
+      console.log("@@@@ onUpdated");
     });
 
     watch(list, (newValue, oldValue) => {
-      console.log('###### watch ', list.value, newValue, oldValue);
+      console.log("###### watch ", list.value, newValue, oldValue);
     });
 
     const fullName = computed(() => {
@@ -73,19 +90,19 @@ export default {
 
     // eslint-disable-next-line no-unused-vars
     const onClick = () => {
-      console.log('##### onClicked');
+      console.log("##### onClicked");
     };
 
     return {
       name,
       list,
-      fullName
+      fullName,
     };
-    
+
     // setup 还可以返回一个渲染函数
     // return () => h('div', [
     //   h('div', { onClick }, [`this is ${fullName.value}`])
     // ]);
-  }
-}
+  },
+};
 </script>

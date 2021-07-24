@@ -10,3 +10,10 @@ export const getComponentDataAsync = (data = {}) => {
   const params = { url, method, data };
   return request(params);
 };
+
+export const loginAsync = (data = {}) => {
+  const url = '/admin/login';
+  const method = 'post';
+  const params = { url, method, data };
+  return request(params);
+};
