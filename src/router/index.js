@@ -1,4 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { routerWhiteList } from '@/constants';
+import { getToken } from '@/utils/sessionStorage';
 
 const routes = [
   {
@@ -6,6 +8,7 @@ const routes = [
     name: "Home",
     component: () => import(/* webpackChunkName: "about" */ "../views/home/index.vue"),
   },
+  { path: '/home', redirect: '/' },
   {
     path: "/test",
     name: "Test",
@@ -26,7 +29,7 @@ const routes = [
   },
   {
     path: "/login",
-    name: "Loign",
+    name: "Login",
     component: () => import(/* webpackChunkName: "login" */ "../views/login/index.vue"),
   },
 ];
@@ -34,6 +37,17 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  const { path } = to;
+  const token = getToken();
+  const isNotRedirectLogin = token || routerWhiteList.includes(path);
+  if (isNotRedirectLogin) {
+    next();
+  } else {
+    next('/login');
+  }
 });
 
 export default router;

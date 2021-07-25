@@ -41,8 +41,8 @@ export default {
     [CellGroup.name]: CellGroup
   },
   setup() {
-    const router = useRouter()
-    const store = useStore()
+    const router = useRouter();
+    const store = useStore();
     const state = reactive({
       username: '',
       password: ''

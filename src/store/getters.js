@@ -1,6 +1,6 @@
 const getters = {
   token: state => state.user.token,
-  avatar: state => state.user.avatar,
+  avatarUrl: state => state.user.avatarUrl,
   name: state => state.user.name
 }
 

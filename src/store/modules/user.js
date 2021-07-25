@@ -1,4 +1,5 @@
 import { loginAsync } from '@/service';
+import { setToken } from '@/utils/sessionStorage';
 import { USER_LOGIN } from '../mutationType';
 
 const state = {
@@ -32,6 +33,7 @@ const actions = {
             user.name = user.nickName;
             user.token = user.password;
             commit(USER_LOGIN, user);
+            setToken(user.token);
           }
           resolve(result);
         })
