@@ -1,6 +1,6 @@
 <template>
   <div class="test-container">
-    <h1>This is an test page</h1>
+    <h1 v-power="123">This is an test page</h1>
   </div>
 </template>
 
